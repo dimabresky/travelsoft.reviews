@@ -1,2 +1,2 @@
 # travelsoft.reviews
-Компонет "Оставьте отзыв" для BitrixFramework
+Модуль "Оставьте отзыв" для BitrixFramework
