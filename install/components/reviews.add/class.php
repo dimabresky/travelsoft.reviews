@@ -30,7 +30,8 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                                 '',
                                 '', 
                                 $_POST['password'], 
-                                $_POST['confirm_password']
+                                $_POST['confirm_password'],
+                                $captchaWord
                             );
                     
                     if ($result['TYPE'] === 'OK') {
@@ -49,7 +50,31 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
             
             if (empty($this->arResult['ERRORS'])) {
                 
+                $review = trim(strip_tags($_POST['review']));
                 
+                if (strlen($review) == 0) {
+                    
+                    $this->arResult['ERRORS']['empty_review'] = '';
+                    
+                }
+                
+                $limitations = '';
+                if ($this->arParams['SHOW_LIMITATIONS_FIELD'] === 'Y') {
+                    
+                    $limitations = trim(strip_tags($_POST['limitations']));
+                }
+                
+                $advantages = '';
+                if ($this->arParams['SHOW_ADVANTAGES_FIELD'] === 'Y') {
+                    
+                    $advantages = trim(strip_tags($_POST['advantages']));
+                }
+                
+                $rating = 0;
+                if ($this->arParams['SHOW_RATING_FIELD'] === 'Y') {
+                    
+                    $rating = (int)trim(strip_tags($_POST['rating']));
+                }
             }
             
         }

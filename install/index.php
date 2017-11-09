@@ -16,7 +16,9 @@ class travelsoft_reviews extends CModule {
     public $MODULE_DESCRIPTION;
     public $MODULE_GROUP_RIGHTS = "N";
     public $namespaceFolder = "travelsoft";
-    public $componentsList = array();
+    public $componentsList = array(
+        "reviews.add"
+    );
     public $reviewsIblockId = null;
     public $reviewsIblockType = 'tsreviews';
     public $eventType = "TRAVELSOFT_REVIEWS";
@@ -43,7 +45,7 @@ class travelsoft_reviews extends CModule {
 
         foreach ($this->componentsList as $componentName) {
             CopyDirFiles(
-                    $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/components/" . $this->namespaceFolder . "/" . $componentName, $_SERVER["DOCUMENT_ROOT"] . "/local/components/" . $this->namespaceFolder . "/" . $componentName, true, true
+                    $_SERVER["DOCUMENT_ROOT"] . "/local/modules/" . $this->MODULE_ID . "/install/components/" . $componentName, $_SERVER["DOCUMENT_ROOT"] . "/local/components/" . $this->namespaceFolder . "/" . $componentName, true, true
             );
         }
     }
@@ -232,7 +234,7 @@ class travelsoft_reviews extends CModule {
             return $arSites;
         }
         
-        $dbSites = CSite::GetList();
+        $dbSites = CSite::GetList($by = "sort", $order = "asc");
         
         while ($arSite = $dbSites->Fetch()) {
             $arSites[] = $arSite['ID'];
