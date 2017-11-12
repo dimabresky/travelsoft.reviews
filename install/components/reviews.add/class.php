@@ -83,6 +83,9 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                 if ($this->arParams['SHOW_RATING_FIELD'] === 'Y') {
                     
                     $rating = (int)trim(strip_tags($_POST['rating']));
+                    if ($rating > 5) {
+                        $rating = 5;
+                    }
                 }
                 
                 $images = array();
