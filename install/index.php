@@ -155,7 +155,7 @@ class travelsoft_reviews extends CModule {
         
         Option::set($this->MODULE_ID, "ADMIN_NOTIFICATION_MAIL_ID", $id);
         
-        $arFields["MESSAGE"] = "Ваш отзыв принят в систему и после проверки будет опубликован";
+        $arFields["MESSAGE"] = "Спасибо! Ваш отзыв принят. После проверки модератором он будет опубликован на сайте #SITE_NAME#";
         $arFields["SUBJECT"] = "Ваш отзыв принят";
         if (!($id = $emess->Add($arFields))) {
             throw new Exception($emess->LAST_ERROR);
@@ -163,7 +163,7 @@ class travelsoft_reviews extends CModule {
         
         Option::set($this->MODULE_ID, "USER_NOTIFICATION_MAIL_ID", $id);
         
-        $arFields["MESSAGE"] = "Ваш отзыв опубликован в системе";
+        $arFields["MESSAGE"] = "Ваш отзыв опубликован на сайте #SITE_NAME#";
         $arFields["SUBJECT"] = "Ваш отзыв опубликован";
         if (!($id = $emess->Add($arFields))) {
             throw new Exception($emess->LAST_ERROR);
@@ -326,6 +326,14 @@ class travelsoft_reviews extends CModule {
                 "CODE" => "PICTURES",
                 "PROPERTY_TYPE" => "F",
                 "PROPERTY_FILE_TYPE" => "jpg,gif,bmp,png,jpeg",
+                "IBLOCK_ID" => $this->reviewsIblockId
+            ),
+            array(
+                "NAME" => "Привязка к элементу",
+                "ACTIVE" => "Y",
+                "SORT" => 100,
+                "CODE" => "LINK_ELEMENT_ID",
+                "PROPERTY_TYPE" => "E",
                 "IBLOCK_ID" => $this->reviewsIblockId
             )
         );

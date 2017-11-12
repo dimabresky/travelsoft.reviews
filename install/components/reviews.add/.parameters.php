@@ -1,8 +1,28 @@
-<?php
+<?php if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+$arComponentParameters["PARAMETERS"]['LINK_ELEMENT_ID'] = array(
+            "PARENT" => "BASE",
+            "NAME" => "ID элемента для отзыва",
+            "TYPE" => "STRING"
+        );
 
+$arComponentParameters["PARAMETERS"]['SHOW_LIMITATIONS_FIELD'] = array(
+            "PARENT" => "BASE",
+            "NAME" => "Показывать поле для \"Недостатки\" заполнения",
+            "TYPE" => "CHECKBOX",
+            "DEFAULT" => "Y"
+        );
+
+$arComponentParameters["PARAMETERS"]['SHOW_ADVANTAGES_FIELD'] = array(
+            "PARENT" => "BASE",
+            "NAME" => "Показывать поле для \"Достоинства\" заполнения",
+            "TYPE" => "CHECKBOX",
+            "DEFAULT" => "Y"
+        );
+
+$arComponentParameters["PARAMETERS"]['SHOW_RATING_FIELD'] = array(
+            "PARENT" => "BASE",
+            "NAME" => "Показывать поле для рейтинга",
+            "TYPE" => "CHECKBOX",
+            "DEFAULT" => "Y"
+        );

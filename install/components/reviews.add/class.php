@@ -12,6 +12,8 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
     
         global $USER;
         
+        $module_id = "travelsoft.reviews";
+        
         $this->arResult['ERRORS'] = array();
         
         if (check_bitrix_sessid() && $_POST["add_review"]) {
@@ -105,13 +107,41 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                             "RATING" => $rating,
                             "ADVANTAGES" => $advantages,
                             "LIMITATIONS" => $limitations,
-                            "PICTURES" => $images
+                            "PICTURES" => $images,
+                            "LINK_ELEMENT_ID" => (int)$this->arParams['LINK_ELEMENT_ID']
                         )
                     ));
                     
                     if ($result) {
                         
+                        Bitrix\Main\Mail\Event::send(array(
+                            "EVENT_NAME" => \Bitrix\Main\Config\Option::get($module_id, 'REVIEWS_MAIL_EVENT_TYPE'),
+                            "LID" => SITE_ID,
+                            "MESSAGE_ID" => \Bitrix\Main\Config\Option::get($module_id, "ADMIN_NOTIFICATION_MAIL_ID"),
+                            "C_FIELDS" => array(
+                                "ID" => $result
+                            )
+                        ));
                         
+                        $_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'] = "DEFAULT_OK_MESSAGE";
+                        if ($this->arParams['NEED_PREMODERATION'] === 'Y') {
+                            
+                            $_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'] = "PREMODERATION_OK_MESSAGE";
+                            Bitrix\Main\Mail\Event::send(array(
+                                "EVENT_NAME" => \Bitrix\Main\Config\Option::get($module_id, 'REVIEWS_MAIL_EVENT_TYPE'),
+                                "LID" => SITE_ID,
+                                "MESSAGE_ID" => \Bitrix\Main\Config\Option::get($module_id, "USER_NOTIFICATION_MAIL_ID")
+                            ));
+                            
+                        } else {
+                            
+                            Bitrix\Main\Mail\Event::send(array(
+                                "EVENT_NAME" => \Bitrix\Main\Config\Option::get($module_id, 'REVIEWS_MAIL_EVENT_TYPE'),
+                                "LID" => SITE_ID,
+                                "MESSAGE_ID" => \Bitrix\Main\Config\Option::get($module_id, "USER_NOTIFICATION2_MAIL_ID")
+                            ));
+                            
+                        }
                         
                         LocalRedirect($APPLICATION->GetCurPageParam("", array(), false));
                     }
@@ -121,5 +151,7 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
             }
             
         }
+        
+        $this->IncludeComponentTemplate();
     }
 }

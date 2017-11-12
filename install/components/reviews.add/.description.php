@@ -1,8 +1,12 @@
-<?php
+<?
+if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
+$arComponentDescription = array(
+	"NAME" => "Добавить отзыв",
+	"DESCRIPTION" => "Форма добавления отзыва",
+	"SORT" => 20,
+	"CACHE_PATH" => "Y",
+	"PATH" => array(
+                    "ID" => "travelsoft"	
+	),
+);
