@@ -18,8 +18,16 @@ $this->setFrameMode(true);
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="add-review">Оставить отзыв</h4>
             </div>
-            <form role="form" action="<?= $APPLICATION->GetCurPage(false) ?>" method="get">
+            <form role="form" action="<?= $APPLICATION->GetCurPage(false) ?>" method="post">
+                <?= bitrix_sessid_post()?>
                 <div class="modal-body">
+                    <?if (!empty($arResult['ERRORS'])):?>
+                        <div class="alert alert-danger">
+                        <?foreach ($arResult['ERRORS'] as $label => $text) :?>
+                            <p><?= GetMessage($label)?></p>
+                        <?endforeach;?>
+                        </div>
+                    <?endif?>
                     <? if (!$USER->IsAuthorized()): ?>
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -31,12 +39,18 @@ $this->setFrameMode(true);
                         </div>
                         <div class="form-group hidden">
                             <label for="password">Подтверждение пароля</label>
-                            <input name="confirm_password" type="password" class="form-control">
+                            <input disabled="" name="confirm_password" type="password" class="form-control">
                         </div>
                         <div class="text-right">
-                            <a href="javascript:void(0)" data-action="registration">Зарегистрироваться</a>
+                            <a href="javascript:void(0)" id="toggle-ar" data-action="registration">Зарегистрироваться</a>
                         </div>
                     <? endif ?>
+                    <?if ($arParams['SHOW_RATING_FIELD'] === 'Y'):?>
+                    <label for="rating">Оценка</label>
+                    <div class="form-group">
+                        <div id="raty-ar"></div>
+                    </div>
+                    <?endif?>
                     <? if ($arParams['SHOW_ADVANTAGES_FIELD'] === 'Y'): ?>
                         <div class="form-group">
                             <label for="advantages">Достоинства</label>
@@ -56,10 +70,29 @@ $this->setFrameMode(true);
 
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
-                    <button type="button" class="btn btn-primary">Сохранить</button>
+                    <button type="submit" name="add_review" value="add_review" class="btn btn-primary">Сохранить</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
+
+<?$this->addExternalJs($templateFolder . "/review_add.js")?>
+<script>
+    // add review parameters (arp)
+    if (typeof window.arp) {
+        window.arp = {};
+    }
+    
+    window.arp = {
+      messages: {
+          registration: "Зарегистрироваться",
+          authorize: "Авторизоваться"
+      },
+      raty: {
+          init: <?if ($arParams['SHOW_RATING_FIELD'] === 'Y'):?>true<?else:?>false<?endif?>,
+          score: <?= (int)$_POST['rating']?>,
+          number: 5
+      }
+    };
+</script>

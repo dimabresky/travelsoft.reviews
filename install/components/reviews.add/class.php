@@ -16,11 +16,11 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
         
         $this->arResult['ERRORS'] = array();
         
-        if (check_bitrix_sessid() && $_POST["add_review"]) {
+        if (check_bitrix_sessid() && strlen($_POST["add_review"]) > 0) {
             
             if (!$USER->isAuthorized()) {
                 
-                if (strlen($_POST['confirm_password']) > 0) {
+                if (key_exists('confirm_password', $_POST)) {
                     
                     $captchaWord = '';
                     if (\Bitrix\Main\Config\Option::get("main", "captcha_registration") === 'Y') {
@@ -39,12 +39,12 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                     if ($result['TYPE'] === 'OK') {
                         
                         if (\Bitrix\Main\Config\Option::get("main", "new_user_registration_email_confirmation") === 'Y') {
-                            $this->arResult["ERRORS"]["need_register_conf"] = $result['MESSAGE'];
+                            $this->arResult["ERRORS"]["NEED_REGISTER_CONF"] = $result['MESSAGE'];
                         }
                         
                     } else {
                         
-                        $this->arResult["ERRORS"]["register_fail"] = $result['MESSAGE'];
+                        $this->arResult["ERRORS"]["REGISTER_FAIL"] = $result['MESSAGE'];
                         
                     }
                 } else {
@@ -52,7 +52,7 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                     $result = $USER->Login($_POST['email'], $_POST['password'], "Y");
                     
                     if ($result !== true) {
-                        $this->arResult["ERRORS"]["auth_fail"] = $result['MESSAGE'];
+                        $this->arResult["ERRORS"]["AUTH_FAIL"] = $result['MESSAGE'];
                     }
                 }
             }
@@ -61,7 +61,7 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                 
             if (strlen($review) == 0) {
 
-                $this->arResult['ERRORS']['empty_review'] = '';
+                $this->arResult['ERRORS']['EMPTY_REVIEW'] = '';
 
             }
             
@@ -149,7 +149,7 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                         LocalRedirect($APPLICATION->GetCurPageParam("", array(), false));
                     }
                     
-                    $this->arResult['ERRORS']['review_add_fail'] = $el->LAST_ERROR;
+                    $this->arResult['ERRORS']['REVIEW_ADD_FAIL'] = $el->LAST_ERROR;
                 }
             }
             
