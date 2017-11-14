@@ -51,7 +51,7 @@
             $('#raty-ar').raty({
                 scoreName: 'rating',
                 number: arp.raty.number,
-                start: arp.raty.score,
+                score: arp.raty.score,
                 path: '/local/modules/travelsoft.reviews/plugins/raty/img'
             });
         }
