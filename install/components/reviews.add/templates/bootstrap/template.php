@@ -21,9 +21,9 @@ $this->setFrameMode(true);
             <form role="form" action="<?= $APPLICATION->GetCurPage(false) ?>" method="post">
                 <?= bitrix_sessid_post()?>
                 <div class="modal-body">
-                    <?if (!empty($arResult['ERRORS'])):?>
+                    <?if (!empty($arResult['ERRORS'])): ?>
                         <div class="alert alert-danger">
-                        <?foreach ($arResult['ERRORS'] as $label => $text) :?>
+                        <?foreach ($arResult['ERRORS'] as $label) :?>
                             <p><?= GetMessage($label)?></p>
                         <?endforeach;?>
                         </div>
@@ -44,6 +44,14 @@ $this->setFrameMode(true);
                         <div class="text-right">
                             <a href="javascript:void(0)" id="toggle-ar" data-action="registration">Зарегистрироваться</a>
                         </div>
+                        <div class="form-group">
+                            <label for="captcha_word">Введите слово с картинки</label>
+                            <div class="captcha-img-box">
+                                <input type="hidden" name="captcha_sid" value="<?= $arResult['CAPTCHA_CODE'];?>">
+                                <img src="/bitrix/tools/captcha.php?captcha_sid=<?= $arResult['CAPTCHA_CODE'];?>" alt="CAPTCHA">
+                            </div>
+                            <input type="text" class="form-control" name="captcha_word">
+                        </div>
                     <? endif ?>
                     <?if ($arParams['SHOW_RATING_FIELD'] === 'Y'):?>
                     <label for="rating">Оценка</label>
@@ -63,6 +71,7 @@ $this->setFrameMode(true);
                             <input class="form-control" name="limitations" value="<?= htmlspecialchars($_POST['limitations']) ?>" type="text">
                         </div>
                     <? endif ?>
+                    
                     <div class="form-group">
                         <label for="review">Отзыв</label>
                         <textarea name="review" class="form-control"><?= htmlspecialchars($_POST['review']) ?></textarea>
