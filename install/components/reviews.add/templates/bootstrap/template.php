@@ -87,7 +87,7 @@ $this->setFrameMode(true);
 </div>
 
 <?if (isset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])):?>
-<div class="modal fade" id="success-add-review-message-modal" tabindex="-1" role="dialog" aria-labelledby="success-add-review-message-modal" aria-hidden="true">
+<div class="modal fade alert" id="success-add-review-message-modal" tabindex="-1" role="dialog" aria-labelledby="success-add-review-message-modal" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             
@@ -95,10 +95,9 @@ $this->setFrameMode(true);
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             </div>
 
-            <div class="modal-body">
-                <div class="alert alert-success">
-                    <?= GetMessage($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])?>
-                </div>
+            <div class="modal-body text-center">
+                
+                <span class="green"><?= GetMessage($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])?></span>
             </div>
 
             </form>

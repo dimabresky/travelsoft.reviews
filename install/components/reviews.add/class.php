@@ -28,18 +28,12 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                                     $_POST['email'], '', '', $_POST['password'], $_POST['confirm_password'], $_POST['email'], SITE_ID, $_POST['captcha_word'], $_POST['captcha_sid']
                             );
                             
-                        } else {
-                            
-                            if (!$APPLICATION->CaptchaCheckCode($_POST["captcha_word"], $_POST["captcha_sid"])) {
-                                
-                                $this->arResult['ERRORS'][] = "CAPTCHA_FAIL";
-                                
-                            } else {
-                            
-                                $result = $USER->Register(
-                                        $_POST['email'], '', '', $_POST['password'], $_POST['confirm_password'], $_POST['email'], SITE_ID
-                                );
-                            }
+                        } elseif ($this->checkCaptcha()) {
+
+                            $result = $USER->Register(
+                                    $_POST['email'], '', '', $_POST['password'], $_POST['confirm_password'], $_POST['email'], SITE_ID
+                            );
+
                         }
                         
                         if (empty($this->arResult["ERRORS"])) {
@@ -57,7 +51,7 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                             }
                         }
                         
-                    } else {
+                    } elseif($this->checkCaptcha()) {
 
                         $result = $USER->Login($_POST['email'], $_POST['password'], "Y");
 
@@ -170,6 +164,21 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
         }
 
         $this->IncludeComponentTemplate();
+    }
+    
+    /**
+     * @global CMain $APPLICATION
+     * @return boolean
+     */
+    public function checkCaptcha () {
+        
+        global $APPLICATION;
+        if (!$APPLICATION->CaptchaCheckCode($_POST["captcha_word"], $_POST["captcha_sid"])) {
+                                
+            $this->arResult['ERRORS'][] = "CAPTCHA_FAIL";
+            return false;
+        }
+        return true;
     }
 
 }
