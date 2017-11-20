@@ -15,41 +15,48 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
         $module_id = "travelsoft.reviews";
 
         $this->arResult['ERRORS'] = array();
-        
-        if (!$USER->isAuthorized()) {
-            $this->arResult['CAPTCHA_CODE'] = $APPLICATION->CaptchaGetCode();
-        }
 
         if (check_bitrix_sessid() && strlen($_POST["add_review"]) > 0) {
 
             if (!$USER->isAuthorized()) {
-                
-                if (!$APPLICATION->CaptchaCheckCode($_POST["captcha_word"], $_POST["captcha_sid"])) {
-                    $this->arResult['ERRORS'][] = "CAPTCHA_FAIL";
-                }
 
-                if (empty($this->arResult['ERRORS'])) {
                     if (key_exists('confirm_password', $_POST)) {
 
-                        $captchaWord = $captchaSid = '';
                         if (\Bitrix\Main\Config\Option::get("main", "captcha_registration") === 'Y') {
-                            $captchaWord = $_POST['captcha_word'];
-                            $captchaSid = $_POST['captcha_sid'];
-                        }
-
-                        $result = $USER->Register(
-                                $_POST['email'], '', '', $_POST['password'], $_POST['confirm_password'], $_POST['email'], SITE_ID, $captchaWord, $captchaSid
-                        );
-
-                        if ($result['TYPE'] === 'OK') {
-
-                            if (\Bitrix\Main\Config\Option::get("main", "new_user_registration_email_confirmation") === 'Y') {
-                                $this->arResult["ERRORS"][] = "NEED_REGISTER_CONF";
-                            }
+                            
+                            $result = $USER->Register(
+                                    $_POST['email'], '', '', $_POST['password'], $_POST['confirm_password'], $_POST['email'], SITE_ID, $_POST['captcha_word'], $_POST['captcha_sid']
+                            );
+                            
                         } else {
-
-                            $this->arResult["ERRORS"][] = "REGISTER_FAIL";
+                            
+                            if (!$APPLICATION->CaptchaCheckCode($_POST["captcha_word"], $_POST["captcha_sid"])) {
+                                
+                                $this->arResult['ERRORS'][] = "CAPTCHA_FAIL";
+                                
+                            } else {
+                            
+                                $result = $USER->Register(
+                                        $_POST['email'], '', '', $_POST['password'], $_POST['confirm_password'], $_POST['email'], SITE_ID
+                                );
+                            }
                         }
+                        
+                        if (empty($this->arResult["ERRORS"])) {
+                            
+                            if ($result['TYPE'] === 'OK') {
+
+                                if (\Bitrix\Main\Config\Option::get("main", "new_user_registration_email_confirmation") === 'Y') {
+                                    $this->arResult["ERRORS"][] = "NEED_REGISTER_CONF";
+                                }
+                                
+                            } else {
+                                
+                                $this->arResult["ERRORS"][] = "REGISTER_FAIL";
+                                
+                            }
+                        }
+                        
                     } else {
 
                         $result = $USER->Login($_POST['email'], $_POST['password'], "Y");
@@ -58,7 +65,6 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                             $this->arResult["ERRORS"][] = "AUTH_FAIL";
                         }
                     }
-                }
                 
             }
 
@@ -99,14 +105,17 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                 }
 
                 if (empty($this->arResult['ERRORS'])) {
-
-                    $el = new CIBLockElemet;
+                    
+                    Bitrix\Main\Loader::includeModule("iblock");
+                    
+                    $el = new CIBlockElement();
 
                     $result = $el->Add(array(
+                        "IBLOCK_ID" => Bitrix\Main\Config\Option::get("travelsoft.reviews", "REVIEWS_IBLOCK_ID"),
                         "NAME" => "Review_" . date('d.m.Y H:s:i'),
                         "ACTIVE" => $this->arParams['NEED_PREMODERATION'] === 'Y' ? 'Y' : 'N',
                         "DETAIL_TEXT" => $review,
-                        "CODE" => "review_" . time(),
+                        "CODE" => "review_" . $USER->GetID() . time(),
                         "PROPERTY_VALUES" => array(
                             "USER_ID" => $USER->GetID(),
                             "USER_NAME" => $USER->GetFullName(),
@@ -150,11 +159,16 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
 
                         LocalRedirect($APPLICATION->GetCurPageParam("", array(), false));
                     }
-
+                    
                     $this->arResult['ERRORS'][] = 'REVIEW_ADD_FAIL';
                 }
             }
         }
+
+        if (!$USER->isAuthorized()) {
+            $this->arResult['CAPTCHA_CODE'] = $APPLICATION->CaptchaGetCode();
+        }
+
         $this->IncludeComponentTemplate();
     }
 

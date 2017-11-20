@@ -6,7 +6,7 @@
     
     $(document).ready(function () {
         
-        var arp = window.arp;
+        var rsp = window.review_storage_parameters;
         
         $(document).on('click', '#toggle-ar',function () {
             
@@ -22,7 +22,7 @@
                 
                 case "registration":
                     
-                    $this.text(arp.messages.authorize);
+                    $this.text(rsp.messages.authorize);
                     
                     $this.data('action', 'autorize');
                     
@@ -34,7 +34,7 @@
                     
                 case "autorize":
                     
-                    $this.text(arp.messages.registration);
+                    $this.text(rsp.messages.registration);
                     
                     $this.data('action', 'registration');
                     
@@ -46,16 +46,23 @@
             }
         });
         
-        if (arp.raty.init) {
+        if (rsp.raty.init) {
             
             $('#raty-ar').raty({
                 scoreName: 'rating',
-                number: arp.raty.number,
-                score: arp.raty.score,
+                number: rsp.raty.number,
+                score: rsp.raty.score,
                 path: '/local/modules/travelsoft.reviews/plugins/raty/img'
             });
         }
         
+        if (rsp.triggerReviewModal) {
+            $('#add-review-modal').modal('show');
+        }
+        
+        if (rsp.triggerSuccessModal) {
+            $('#success-add-review-message-modal').modal('show');
+        }
         
     });
     

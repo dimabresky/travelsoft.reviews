@@ -86,14 +86,36 @@ $this->setFrameMode(true);
     </div>
 </div>
 
+<?if (isset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])):?>
+<div class="modal fade" id="success-add-review-message-modal" tabindex="-1" role="dialog" aria-labelledby="success-add-review-message-modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="alert alert-success">
+                    <?= GetMessage($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])?>
+                </div>
+            </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<?endif?>
+
 <?$this->addExternalJs($templateFolder . "/review_add.js")?>
+
 <script>
-    // add review parameters (arp)
-    if (typeof window.arp) {
-        window.arp = {};
+    // review storage parameters (rsp)
+    if (typeof window.review_storage_parameters) {
+        window.review_storage_parameters = {};
     }
     
-    window.arp = {
+    window.review_storage_parameters = {
       messages: {
           registration: "Зарегистрироваться",
           authorize: "Авторизоваться"
@@ -102,6 +124,10 @@ $this->setFrameMode(true);
           init: <?if ($arParams['SHOW_RATING_FIELD'] === 'Y'):?>true<?else:?>false<?endif?>,
           score: <?= (int)$_POST['rating']?>,
           number: 5
-      }
+      },
+      triggerReviewModal: <?if (!empty($arResult['ERRORS'])):?>true<?else:?>false<?endif?>,
+      triggerSuccessModal: <?if (isset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])):?>true<?else:?>false<?endif?>
     };
 </script>
+
+<?unset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])?>
