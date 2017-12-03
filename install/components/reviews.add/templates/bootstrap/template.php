@@ -106,7 +106,7 @@ $this->setFrameMode(true);
 </div>
 <?endif?>
 
-<?$this->addExternalJs($templateFolder . "/review_add.js")?>
+<?$this->addExternalJs($templateFolder . "/_script.js")?>
 
 <script>
     // review storage parameters (rsp)
