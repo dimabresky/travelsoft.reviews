@@ -85,10 +85,12 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
 
                 $rating = 0;
                 if ($this->arParams['SHOW_RATING_FIELD'] === 'Y') {
-
+                    
+                    $mrv = Bitrix\Main\Config\Option::get($module_id, "MAX_RATING_VALUE");
+                    
                     $rating = (int) trim(strip_tags($_POST['rating']));
-                    if ($rating > 5) {
-                        $rating = 5;
+                    if ($rating > $mrv) {
+                        $rating = $mrv;
                     }
                 }
 
@@ -107,7 +109,7 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                     $result = $el->Add(array(
                         "IBLOCK_ID" => Bitrix\Main\Config\Option::get("travelsoft.reviews", "REVIEWS_IBLOCK_ID"),
                         "NAME" => "Review_" . date('d.m.Y H:s:i'),
-                        "ACTIVE" => $this->arParams['NEED_PREMODERATION'] === 'Y' ? 'Y' : 'N',
+                        "ACTIVE" => $this->arParams['NEED_PREMODERATION'] === 'Y' ? 'N' : 'Y',
                         "DETAIL_TEXT" => $review,
                         "CODE" => "review_" . $USER->GetID() . time(),
                         "PROPERTY_VALUES" => array(

@@ -26,3 +26,10 @@ $arComponentParameters["PARAMETERS"]['SHOW_RATING_FIELD'] = array(
             "TYPE" => "CHECKBOX",
             "DEFAULT" => "Y"
         );
+
+$arComponentParameters["PARAMETERS"]['NEED_PREMODERATION'] = array(
+            "PARENT" => "BASE",
+            "NAME" => "Нужна премодерация отзывов",
+            "TYPE" => "CHECKBOX",
+            "DEFAULT" => "Y"
+        );

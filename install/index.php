@@ -85,6 +85,8 @@ class travelsoft_reviews extends CModule {
             # копирование файлов
             $this->copyFiles();
             
+            Option::set($this->MODULE_ID, "MAX_RATING_VALUE", 5);
+            
         } catch (Exception $ex) {
             $GLOBALS["APPLICATION"]->ThrowException($ex->getMessage());
             $this->DoUninstall();
@@ -104,6 +106,8 @@ class travelsoft_reviews extends CModule {
         
         # удаление файлов
         $this->deleteFiles();
+        
+        Option::delete($this->MODULE_ID, array('name' => 'MAX_RATING_VALUE'));
         
         ModuleManager::unRegisterModule($this->MODULE_ID);
         

@@ -5,9 +5,13 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 $this->setFrameMode(true);
 ?>
 
+<?if (isset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])):?>
+<div id="add-review-success-message" class="alert alert-success"><?= GetMessage($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])?></div>
+<?endif?>
+
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <button role="button" data-toggle="modal" data-target="#add-review-modal" class="btn btn-success">Оставить отзыв</button>
+        <button role="button" data-toggle="modal" data-target="#add-review-modal" id="add-review-btn" class="btn btn-success">Оставить отзыв</button>
     </div>
 </div>
 
@@ -86,25 +90,7 @@ $this->setFrameMode(true);
     </div>
 </div>
 
-<?if (isset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])):?>
-<div class="modal fade alert" id="success-add-review-message-modal" tabindex="-1" role="dialog" aria-labelledby="success-add-review-message-modal" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
 
-            <div class="modal-body text-center">
-                
-                <span class="green"><?= GetMessage($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])?></span>
-            </div>
-
-            </form>
-        </div>
-    </div>
-</div>
-<?endif?>
 
 <?$this->addExternalJs($templateFolder . "/_script.js")?>
 
@@ -125,8 +111,8 @@ $this->setFrameMode(true);
           number: 5
       },
       triggerReviewModal: <?if (!empty($arResult['ERRORS'])):?>true<?else:?>false<?endif?>,
-      triggerSuccessModal: <?if (isset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])):?>true<?else:?>false<?endif?>
+      scrollToSuccessMessage: <?if ($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK']):?>true<?else:?>false<?endif?>
     };
 </script>
 
-<?unset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])?>
+<?unset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK']); ?>

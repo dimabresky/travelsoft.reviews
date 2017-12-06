@@ -11,3 +11,7 @@
 .green {
     color: green
 }
+
+#add-review-btn {
+    width: 100%;
+}
