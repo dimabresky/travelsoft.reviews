@@ -42,7 +42,7 @@ class Statistics {
         return array(
             "stars" => $stars,
             "cnt" => $cnt,
-            "percent" => (float)(100 * $cnt / $this->_total_cnt)
+            "percent" => (float)round((100 * $cnt / $this->_total_cnt), 1)
         );
     }
 
@@ -69,7 +69,7 @@ class Statistics {
         }
 
         $statistics["total_count"] = $this->_total_cnt;
-        $statistics["middle"] = $total_stars / $this->_total_cnt;
+        $statistics["middle"] = round($total_stars / $this->_total_cnt, 1);
 
         return $statistics;
     }
