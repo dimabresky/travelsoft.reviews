@@ -3,6 +3,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
     die();
 
 $this->setFrameMode(true);
+if (!$arResult["STATISTICS"]["total_count"]) {
+    return;
+}
 ?>
 
 <div itemscope itemtype="http://schema.org/AggregateRating" class="reviews-rating panel panel-default">
