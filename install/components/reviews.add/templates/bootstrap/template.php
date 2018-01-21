@@ -10,8 +10,8 @@ $this->setFrameMode(true);
 <?endif?>
 
 <div class="row">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-        <button role="button" data-toggle="modal" data-target="#add-review-modal" id="add-review-btn" class="btn btn-success">Оставить отзыв</button>
+    <div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <button role="button" data-toggle="modal" data-target="#add-review-modal" id="add-review-btn" class="btn btn-primary">Оставить отзыв</button>
     </div>
 </div>
 
@@ -83,7 +83,7 @@ $this->setFrameMode(true);
 
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" name="add_review" value="add_review" class="btn btn-primary">Сохранить</button>
+                    <button type="submit" name="add_review" value="add_review" class="btn btn-success">Сохранить</button>
                 </div>
             </form>
         </div>
@@ -93,14 +93,9 @@ $this->setFrameMode(true);
 
 
 <?$this->addExternalJs($templateFolder . "/_script.js")?>
-
 <script>
-    // review storage parameters (rsp)
-    if (typeof window.review_storage_parameters) {
-        window.review_storage_parameters = {};
-    }
     
-    window.review_storage_parameters = {
+    window.reviewsAddJsParameters = {
       messages: {
           registration: "Зарегистрироваться",
           authorize: "Авторизоваться"
@@ -108,11 +103,12 @@ $this->setFrameMode(true);
       raty: {
           init: <?if ($arParams['SHOW_RATING_FIELD'] === 'Y'):?>true<?else:?>false<?endif?>,
           score: <?= (int)$_POST['rating']?>,
-          number: 5
+          number: <?= Bitrix\Main\Config\Option::get("travelsoft.reviews", "MAX_RATING_VALUE")?>,
       },
       triggerReviewModal: <?if (!empty($arResult['ERRORS'])):?>true<?else:?>false<?endif?>,
       scrollToSuccessMessage: <?if ($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK']):?>true<?else:?>false<?endif?>
     };
+    
 </script>
 
 <?unset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK']); ?>

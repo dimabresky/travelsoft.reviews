@@ -11,9 +11,14 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
     public function executeComponent() {
 
         global $APPLICATION, $USER;
-
+        
         $module_id = "travelsoft.reviews";
-
+        
+        if ($this->arParams['SHOW_RATING_FIELD'] === 'Y') {
+            
+            Bitrix\Main\Page\Asset::getInstance()->addJs("/local/modules/$module_id/plugins/raty/jquery.raty.min.js", true);
+        }
+        
         $this->arResult['ERRORS'] = array();
 
         if (check_bitrix_sessid() && strlen($_POST["add_review"]) > 0) {

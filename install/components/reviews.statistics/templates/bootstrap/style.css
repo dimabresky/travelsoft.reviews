@@ -1,0 +1,73 @@
+
+/* 
+    Created on : 20.01.2018, 0:55:37
+    Author     : dimabresky
+*/
+
+.reviews-rating {
+    max-width: 600px;
+}
+
+.rating-fill {
+    background-color: #ed9f00;
+    height: 100%;
+}
+
+.rating-scale {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    background-color: #cccccc21;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+
+}
+
+.rating-value {
+    position: absolute;
+    right: 50%;
+}
+
+.stat-row {
+    margin-bottom: 5px;
+}
+
+.stars {
+    width: 100% !important;
+}
+
+.middle-rating-value {
+    font-size: 56px;
+}
+
+/* flex row of bootstrap column */
+.row-flex, .row-flex > div[class*='col-'] {  
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    flex:1 1 auto;
+}
+
+.row-flex-wrap {
+    -webkit-flex-flow: row wrap;
+    align-content: flex-start;
+    flex:0;
+}
+
+.row-flex > div[class*='col-'] {
+    margin:-.2px;
+}
+
+.flex-grow {
+    display: flex;
+    -webkit-flex: 2;
+    flex: 2;
+}
+
+.flex-col {
+    display: flex;
+    display: -webkit-flex;
+    flex: 1 100%;
+    flex-flow: column nowrap;
+}

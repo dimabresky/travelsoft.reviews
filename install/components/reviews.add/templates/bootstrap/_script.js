@@ -1,13 +1,21 @@
+
+/**
+ * reviews.add component
+ * 
+ * @author dimabresky 
+ * @copyright 2018, travelsoft
+ */
+
+
 (function (window) {
 
-    var $ = window.jQuery;
-
     var document = window.document;
-
+    var $ = window.jQuery;
+    
     $(document).ready(function () {
-
-        var rsp = window.review_storage_parameters;
-
+        
+        var __parameters = window.reviewsAddJsParameters;
+        
         $(document).on('click', '#toggle-ar', function () {
 
             var $this = $(this);
@@ -22,7 +30,7 @@
 
                 case "registration":
 
-                    $this.text(rsp.messages.authorize);
+                    $this.text(__parameters.messages.authorize);
 
                     $this.data('action', 'autorize');
 
@@ -34,7 +42,7 @@
 
                 case "autorize":
 
-                    $this.text(rsp.messages.registration);
+                    $this.text(__parameters.messages.registration);
 
                     $this.data('action', 'registration');
 
@@ -46,21 +54,21 @@
             }
         });
 
-        if (rsp.raty.init) {
+        if (__parameters.raty.init) {
 
             $('#raty-ar').raty({
                 scoreName: 'rating',
-                number: rsp.raty.number,
-                score: rsp.raty.score,
+                number: __parameters.raty.number,
+                score: __parameters.raty.score,
                 path: '/local/modules/travelsoft.reviews/plugins/raty/img'
             });
         }
 
-        if (rsp.triggerReviewModal) {
+        if (__parameters.triggerReviewModal) {
             $('#add-review-modal').modal('show');
         }
 
-        if (rsp.scrollToSuccessMessage) {
+        if (__parameters.scrollToSuccessMessage) {
             $('html, body').animate({
                 scrollTop: $("#add-review-success-message").offset().top
             }, 1000);
