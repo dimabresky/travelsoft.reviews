@@ -103,7 +103,7 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
 
                         foreach ($_FILES['images']["name"] as $k => $image_name) {
 
-                            if ($k + 1 === 6) {
+                            if ($k === 5) {
                                 break;
                             }
 
