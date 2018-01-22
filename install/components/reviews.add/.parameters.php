@@ -27,6 +27,13 @@ $arComponentParameters["PARAMETERS"]['SHOW_RATING_FIELD'] = array(
             "DEFAULT" => "Y"
         );
 
+$arComponentParameters["PARAMETERS"]['SHOW_ADD_IMAGE_FIELD'] = array(
+            "PARENT" => "BASE",
+            "NAME" => "Добавить возможность загрузки фото",
+            "TYPE" => "CHECKBOX",
+            "DEFAULT" => "Y"
+        );
+
 $arComponentParameters["PARAMETERS"]['NEED_PREMODERATION'] = array(
             "PARENT" => "BASE",
             "NAME" => "Нужна премодерация отзывов",

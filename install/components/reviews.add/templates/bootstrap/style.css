@@ -15,3 +15,11 @@
 #add-review-btn {
     max-width: 145px;
 }
+
+#add-img-btn{
+    font-size: 11px !important;
+}
+
+.added-file {
+    cursor:pointer;
+}

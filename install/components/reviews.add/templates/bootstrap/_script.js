@@ -11,11 +11,13 @@
 
     var document = window.document;
     var $ = window.jQuery;
-    
+
     $(document).ready(function () {
-        
+
         var __parameters = window.reviewsAddJsParameters;
-        
+
+        var __file, fileCounter = 0;
+
         $(document).on('click', '#toggle-ar', function () {
 
             var $this = $(this);
@@ -72,6 +74,38 @@
             $('html, body').animate({
                 scrollTop: $("#add-review-success-message").offset().top
             }, 1000);
+        }
+
+        if (__parameters.initAddFile) {
+
+            $("#add-img-btn").on("click", function () {
+
+                __file = $('<input accept="image/*" name="images[' + fileCounter + ']" class="hidden" type="file">');
+
+                $(this).parent().append(__file);
+                __file.trigger("click");
+                (function (fileCounter) {
+                    __file.one("change", function () {
+                        $(this).parent().prepend('<span class="added-file" data-input-link="images[' + fileCounter + ']">' + (function (_this) {
+                            var fimeFullName = $(_this).val();
+                            while (fimeFullName.indexOf("\\") > -1) {
+                                fimeFullName = fimeFullName.replace("\\", "/");
+                            }
+
+                            return fimeFullName.split("/").pop();
+                        })(this) + " &times;<br></span>");
+                    });
+                })(fileCounter);
+
+                fileCounter++;
+            });
+
+            $(document).on("click", ".added-file", function () {
+                var inputName = $(this).data("input-link");
+                $(this).remove();
+                $("input[name='" + inputName + "']").remove();
+            });
+
         }
 
     });

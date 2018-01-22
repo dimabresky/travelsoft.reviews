@@ -5,9 +5,9 @@ if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)
 $this->setFrameMode(true);
 ?>
 
-<?if (isset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])):?>
-<div id="add-review-success-message" class="alert alert-success"><?= GetMessage($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])?></div>
-<?endif?>
+<? if (isset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK'])): ?>
+    <div id="add-review-success-message" class="alert alert-success"><?= GetMessage($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK']) ?></div>
+<? endif ?>
 
 <div class="row">
     <div class="text-center col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -22,16 +22,16 @@ $this->setFrameMode(true);
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="add-review">Оставить отзыв</h4>
             </div>
-            <form role="form" action="<?= $APPLICATION->GetCurPage(false) ?>" method="post">
-                <?= bitrix_sessid_post()?>
+            <form enctype="multipart/form-data" role="form" action="<?= $APPLICATION->GetCurPage(false) ?>" method="post">
+                <?= bitrix_sessid_post() ?>
                 <div class="modal-body">
-                    <?if (!empty($arResult['ERRORS'])): ?>
+                    <? if (!empty($arResult['ERRORS'])): ?>
                         <div class="alert alert-danger">
-                        <?foreach ($arResult['ERRORS'] as $label) :?>
-                            <p><?= GetMessage($label)?></p>
-                        <?endforeach;?>
+                            <? foreach ($arResult['ERRORS'] as $label) : ?>
+                                <p><?= GetMessage($label) ?></p>
+                            <? endforeach; ?>
                         </div>
-                    <?endif?>
+                    <? endif ?>
                     <? if (!$USER->IsAuthorized()): ?>
                         <div class="form-group">
                             <label for="email">Email</label>
@@ -51,18 +51,18 @@ $this->setFrameMode(true);
                         <div class="form-group">
                             <label for="captcha_word">Введите слово с картинки</label>
                             <div class="captcha-img-box">
-                                <input type="hidden" name="captcha_sid" value="<?= $arResult['CAPTCHA_CODE'];?>">
-                                <img src="/bitrix/tools/captcha.php?captcha_sid=<?= $arResult['CAPTCHA_CODE'];?>" alt="CAPTCHA">
+                                <input type="hidden" name="captcha_sid" value="<?= $arResult['CAPTCHA_CODE']; ?>">
+                                <img src="/bitrix/tools/captcha.php?captcha_sid=<?= $arResult['CAPTCHA_CODE']; ?>" alt="CAPTCHA">
                             </div>
                             <input type="text" class="form-control" name="captcha_word">
                         </div>
                     <? endif ?>
-                    <?if ($arParams['SHOW_RATING_FIELD'] === 'Y'):?>
-                    <label for="rating">Оценка</label>
-                    <div class="form-group">
-                        <div id="raty-ar"></div>
-                    </div>
-                    <?endif?>
+                    <? if ($arParams['SHOW_RATING_FIELD'] === 'Y'): ?>
+                        <label for="rating">Оценка</label>
+                        <div class="form-group">
+                            <div id="raty-ar"></div>
+                        </div>
+                    <? endif ?>
                     <? if ($arParams['SHOW_ADVANTAGES_FIELD'] === 'Y'): ?>
                         <div class="form-group">
                             <label for="advantages">Достоинства</label>
@@ -75,7 +75,12 @@ $this->setFrameMode(true);
                             <input class="form-control" name="limitations" value="<?= htmlspecialchars($_POST['limitations']) ?>" type="text">
                         </div>
                     <? endif ?>
-                    
+                    <? if ($arParams['SHOW_ADD_IMAGE_FIELD'] === 'Y'): ?>
+                        <div class="form-group">
+                            <button id="add-img-btn" type="button" class="btn btn-success">+ Добавить фото</button>
+
+                        </div>
+                    <? endif ?>
                     <div class="form-group">
                         <label for="review">Отзыв</label>
                         <textarea name="review" class="form-control"><?= htmlspecialchars($_POST['review']) ?></textarea>
@@ -92,23 +97,24 @@ $this->setFrameMode(true);
 
 
 
-<?$this->addExternalJs($templateFolder . "/_script.js")?>
+<? $this->addExternalJs($templateFolder . "/_script.js") ?>
 <script>
-    
+
     window.reviewsAddJsParameters = {
-      messages: {
-          registration: "Зарегистрироваться",
-          authorize: "Авторизоваться"
-      },
-      raty: {
-          init: <?if ($arParams['SHOW_RATING_FIELD'] === 'Y'):?>true<?else:?>false<?endif?>,
-          score: <?= (int)$_POST['rating']?>,
-          number: <?= Bitrix\Main\Config\Option::get("travelsoft.reviews", "MAX_RATING_VALUE")?>,
-      },
-      triggerReviewModal: <?if (!empty($arResult['ERRORS'])):?>true<?else:?>false<?endif?>,
-      scrollToSuccessMessage: <?if ($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK']):?>true<?else:?>false<?endif?>
-    };
-    
+        messages: {
+            registration: "Зарегистрироваться",
+            authorize: "Авторизоваться"
+        },
+        raty: {
+            init: <? if ($arParams['SHOW_RATING_FIELD'] === 'Y'): ?>true<? else: ?>false<? endif ?>,
+                        score: <?= (int) $_POST['rating'] ?>,
+                        number: <?= Bitrix\Main\Config\Option::get("travelsoft.reviews", "MAX_RATING_VALUE") ?>,
+                    },
+                    initAddFile: <? if ($arParams['SHOW_ADD_IMAGE_FIELD'] === 'Y'): ?>true<? else: ?>false<? endif ?>,
+                            triggerReviewModal: <? if (!empty($arResult['ERRORS'])): ?>true<? else: ?>false<? endif ?>,
+                                    scrollToSuccessMessage: <? if ($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK']): ?>true<? else: ?>false<? endif ?>
+                                        };
+
 </script>
 
-<?unset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK']); ?>
+<? unset($_SESSION['__TRAVELSOFT']['REVIEWS_MESS_OK']); ?>

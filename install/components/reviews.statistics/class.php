@@ -19,7 +19,7 @@ class TravelsoftReviewsStatistics extends CBitrixComponent {
             \Bitrix\Main\Loader::includeModule("travelsoft.reviews");
             $this->arResult["STATISTICS"] = (new travelsoft\reviews\Statistics($this->arParams["LINK_ELEMENT_ID"]))->get();
 
-            Bitrix\Main\Page\Asset::getInstance()->addJs("/local/modules/travelsoft.reviews/plugins/raty/jquery.raty.js", true);
+            Bitrix\Main\Page\Asset::getInstance()->addJs("/local/modules/travelsoft.reviews/plugins/raty/jquery.raty.min.js", true);
             
             $this->IncludeComponentTemplate();
         } catch (\Exception $ex) {

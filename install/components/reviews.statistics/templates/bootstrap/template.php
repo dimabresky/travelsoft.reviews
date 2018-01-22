@@ -26,7 +26,7 @@ if (!$arResult["STATISTICS"]["total_count"]) {
                     <div class="row row-flex row-flex-wrap stat-row">
                         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4 flex-col stars-box text-right">
                             <div data-stars="<?= $r_stars["stars"] ?>" class="stars"></div>
-                            <div class="hidden" <?= $isBest ?><?= $isWorst ?>><?= $r_stars["stars"] ?></div>
+                            <div class="hidden" <?= $isBest ?><?= $isWarst ?>><?= $r_stars["stars"] ?></div>
                         </div>
                         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 flex-col text-center rating-scale">
                             <div style="width: <?= $r_stars["percent"] ?>%" class="rating-fill"></div>
