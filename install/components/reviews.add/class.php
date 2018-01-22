@@ -14,16 +14,16 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
 
         try {
             $module_id = "travelsoft.reviews";
-
+            
+            if ($this->arParams["LINK_ELEMENT_ID"] <= 0) {
+                throw new Exception("Не указан id для привязки элемента");
+            }
+            
             if ($this->arParams['SHOW_RATING_FIELD'] === 'Y') {
 
                 Bitrix\Main\Page\Asset::getInstance()->addJs("/local/modules/$module_id/plugins/raty/jquery.raty.min.js", true);
             }
             
-            if ($this->arParams["LINK_ELEMENT_ID"] <= 0) {
-                throw new Exception("Не указан id для привязки элемента");
-            }
-
             $this->arResult['ERRORS'] = array();
 
             if (check_bitrix_sessid() && strlen($_POST["add_review"]) > 0) {
