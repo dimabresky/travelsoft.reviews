@@ -285,42 +285,10 @@ class travelsoft_reviews extends CModule {
                 "IBLOCK_ID" => $this->reviewsIblockId
             ),
             array(
-                "NAME" => "ФИО",
-                "ACTIVE" => "Y",
-                "SORT" => 100,
-                "CODE" => "USER_NAME",
-                "PROPERTY_TYPE" => "S",
-                "IBLOCK_ID" => $this->reviewsIblockId
-            ),
-            array(
-                "NAME" => "Email",
-                "ACTIVE" => "Y",
-                "SORT" => 100,
-                "CODE" => "USER_EMAIL",
-                "PROPERTY_TYPE" => "S",
-                "IBLOCK_ID" => $this->reviewsIblockId
-            ),
-            array(
                 "NAME" => "Рейтинг",
                 "ACTIVE" => "Y",
                 "SORT" => 100,
                 "CODE" => "RATING",
-                "PROPERTY_TYPE" => "S",
-                "IBLOCK_ID" => $this->reviewsIblockId
-            ),
-            array(
-                "NAME" => "Достоинства",
-                "ACTIVE" => "Y",
-                "SORT" => 100,
-                "CODE" => "ADVANTAGES",
-                "PROPERTY_TYPE" => "S",
-                "IBLOCK_ID" => $this->reviewsIblockId
-            ),
-            array(
-                "NAME" => "Недостатки",
-                "ACTIVE" => "Y",
-                "SORT" => 100,
-                "CODE" => "LIMITATIONS",
                 "PROPERTY_TYPE" => "S",
                 "IBLOCK_ID" => $this->reviewsIblockId
             ),

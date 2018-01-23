@@ -57,30 +57,19 @@ $this->setFrameMode(true);
                             <input type="text" class="form-control" name="captcha_word">
                         </div>
                     <? endif ?>
-                    <? if ($arParams['SHOW_RATING_FIELD'] === 'Y'): ?>
-                        <label for="rating">Оценка</label>
-                        <div class="form-group">
-                            <div id="raty-ar"></div>
-                        </div>
-                    <? endif ?>
-                    <? if ($arParams['SHOW_ADVANTAGES_FIELD'] === 'Y'): ?>
-                        <div class="form-group">
-                            <label for="advantages">Достоинства</label>
-                            <input class="form-control" name="advantages" value="<?= htmlspecialchars($_POST['advantages']) ?>" type="text">
-                        </div>
-                    <? endif ?>
-                    <? if ($arParams['SHOW_LIMITATIONS_FIELD'] === 'Y'): ?>
-                        <div class="form-group">
-                            <label for="limitations">Недостатки</label>
-                            <input class="form-control" name="limitations" value="<?= htmlspecialchars($_POST['limitations']) ?>" type="text">
-                        </div>
-                    <? endif ?>
                     <? if ($arParams['SHOW_ADD_IMAGE_FIELD'] === 'Y'): ?>
                         <div class="form-group">
                             <button id="add-img-btn" type="button" class="btn btn-success">+ Добавить фото</button>
 
                         </div>
                     <? endif ?>
+                    <? if ($arParams['SHOW_RATING_FIELD'] === 'Y'): ?>
+                        <label for="rating">Оценка</label>
+                        <div class="form-group">
+                            <div id="raty-ar"></div>
+                        </div>
+                    <? endif ?>
+                    
                     <div class="form-group">
                         <label for="review">Отзыв</label>
                         <textarea name="review" class="form-control"><?= htmlspecialchars($_POST['review']) ?></textarea>

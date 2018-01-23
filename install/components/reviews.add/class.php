@@ -19,11 +19,6 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                 throw new Exception("Не указан id для привязки элемента");
             }
             
-            if ($this->arParams['SHOW_RATING_FIELD'] === 'Y') {
-
-                Bitrix\Main\Page\Asset::getInstance()->addJs("/local/modules/$module_id/plugins/raty/jquery.raty.min.js", true);
-            }
-            
             $this->arResult['ERRORS'] = array();
 
             if (check_bitrix_sessid() && strlen($_POST["add_review"]) > 0) {
@@ -75,18 +70,6 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
 
                 if (empty($this->arResult['ERRORS'])) {
 
-                    $limitations = '';
-                    if ($this->arParams['SHOW_LIMITATIONS_FIELD'] === 'Y') {
-
-                        $limitations = trim(strip_tags($_POST['limitations']));
-                    }
-
-                    $advantages = '';
-                    if ($this->arParams['SHOW_ADVANTAGES_FIELD'] === 'Y') {
-
-                        $advantages = trim(strip_tags($_POST['advantages']));
-                    }
-
                     $rating = 0;
                     if ($this->arParams['SHOW_RATING_FIELD'] === 'Y') {
 
@@ -131,11 +114,7 @@ class TravelsoftReviewsAdd extends CBitrixComponent {
                             "CODE" => "review_" . $USER->GetID() . time(),
                             "PROPERTY_VALUES" => array(
                                 "USER_ID" => $USER->GetID(),
-                                "USER_NAME" => $USER->GetFullName(),
-                                "USER_EMAIL" => $USER->GetEmail(),
                                 "RATING" => $rating,
-                                "ADVANTAGES" => $advantages,
-                                "LIMITATIONS" => $limitations,
                                 "PICTURES" => $images,
                                 "LINK_ELEMENT_ID" => (int) $this->arParams['LINK_ELEMENT_ID']
                             )

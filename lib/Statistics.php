@@ -14,21 +14,17 @@ class Statistics {
      * @var int 
      */
     protected $_total_cnt = 0;
-
-    protected $_filter = array();
+    
+    protected $_reviews = null;
 
     /**
      * @param int $element_id
      */
     public function __construct(int $element_id) {
 
-        $this->_filter = array(
-            "IBLOCK_ID" => \Bitrix\Main\Config\Option::get("travelsoft.reviews", "REVIEWS_IBLOCK_ID"),
-            "PROPERTY_LINK_ELEMENT_ID" => $element_id,
-            "ACTIVE" => "Y"
-        );
+        $this->_reviews = new Reviews;
         
-        $this->_total_cnt = \CIBlockElement::GetList(array(), $this->_filter, array(), false);
+        $this->_total_cnt = $this->_reviews->getCount();
     }
     
     /**
@@ -37,8 +33,7 @@ class Statistics {
      */
     public function getForStars(int $stars) {
 
-        $this->_filter["PROPERTY_RATING"] = $stars === 0 ? false : $stars;
-        $cnt = \CIBlockElement::GetList(array(), $this->_filter, array(), false);
+        $cnt = $this->_reviews->stars($stars)->getCount();
         return array(
             "stars" => $stars,
             "cnt" => $cnt,
