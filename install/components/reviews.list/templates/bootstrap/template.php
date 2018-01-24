@@ -29,7 +29,7 @@ if (!$arResult["ITEMS"]) {
                         <span id="review-rating-<?= $h ?>" data-stars="<?= $arItem["RATING"] ?>" class="review-rating"></span>
                         <? if (!empty($arItem["PICTURES"])) : ?>
 
-                            <a data-fancybox="gallery-<?= $h ?>" id="gallery-<?= md5("ts_" . time() . $arItem["PICTURES"][0]["ID"]) ?>" class=review-gallery" href="<?= $arItem["PICTURES"][0]["SRC"] ?>">Галерея</a>
+                            <a data-fancybox="gallery-<?= $h ?>" id="gallery-<?= md5("ts_" . time() . $arItem["PICTURES"][0]["ID"]) ?>" class="review-gallery" href="<?= $arItem["PICTURES"][0]["SRC"] ?>">Галерея</a>
                             <span class="hidden">
                                 <? if ($arItem["PICTURES"][1]): ?>
                                     <? for ($i = 1; $i < count($arItem["PICTURES"]); $i++): ?>
