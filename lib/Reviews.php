@@ -63,7 +63,7 @@ class Reviews {
             $arUser = array(
                 "ID" => null,
                 "PERSONAL_PHOTO" => null,
-                "AVATAR" => null,
+                "AVATAR" => "/local/modules/travelsoft.reviews/img/no_user_photo.png",
                 "EMAIL" => null
             );
             if ($arProperties["USER_ID"]["VALUE"] > 0) {
@@ -76,7 +76,7 @@ class Reviews {
                         $arUser["EMAIL"] = $arr["EMAIL"];
                         if ($arr["PERSONAL_PHOTO"] > 0) {
                             $arUser["PERSONAL_PHOTO"] = $arr["PERSONAL_PHOTO"];
-                            $img = File::ResizeImageGet($arr["PERSONAL_PHOTO"], array('width' => 40, 'height' => 40), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                            $img = \CFile::ResizeImageGet($arr["PERSONAL_PHOTO"], array('width' => 40, 'height' => 40), BX_RESIZE_IMAGE_PROPORTIONAL, true);
                             if ($img) {
                                 $arUser["AVATAR"] = $img["src"];
                             }
@@ -90,10 +90,24 @@ class Reviews {
             if (!empty($arProperties["PICTURES"]["VALUE"])) {
                 
                 foreach ($arProperties["PICTURES"]["VALUE"] as $id) {
-                    $img = File::ResizeImageGet($arr["PERSONAL_PHOTO"], array('width' => 40, 'height' => 40), BX_RESIZE_IMAGE_PROPORTIONAL, true);
+                    
+                    $img = \CFile::ResizeImageGet($id, array('width' => 600, 'height' => 500), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, true);
+                    $arPictures[] = array("ID" => $id, "SRC" => $img["src"]);
                 }
             }
+            
+            $arResult["ITEMS"][] = array(
+                "ID" => $arFields["ID"],
+                "DATE_CREATE" => $arFields["DATE_CREATE"],
+                "RATING" => intVal($arProperties["RATING"]["VALUE"]),
+                "REVIEW_TEXT" => $arFields["DETAIL_TEXT"],
+                "~REVIEW_TEXT" => $arFields["~DETAIL_TEXT"],
+                "USER" => $arUser,
+                "PICTURES" => $arPictures
+            );
         }
+        
+        return $arResult;
     }
 
     public function elementId(int $element_id) {

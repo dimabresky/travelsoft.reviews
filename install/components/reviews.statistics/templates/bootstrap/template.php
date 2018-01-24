@@ -47,7 +47,7 @@ if (!$arResult["STATISTICS"]["total_count"]) {
         </div>
     </div>
 </div>
-<? $this->addExternalJs($templateFolder . "/_script.js") ?>
+<? $this->addExternalJs($templateFolder . "/_script.js", true) ?>
 
 <script>
 

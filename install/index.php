@@ -18,7 +18,8 @@ class travelsoft_reviews extends CModule {
     public $namespaceFolder = "travelsoft";
     public $componentsList = array(
         "reviews.add",
-        "reviews.statistics"
+        "reviews.statistics",
+        "reviews.list"
     );
     public $reviewsIblockId = null;
     public $reviewsIblockType = 'tsreviews';
@@ -297,6 +298,7 @@ class travelsoft_reviews extends CModule {
                 "ACTIVE" => "Y",
                 "SORT" => 100,
                 "CODE" => "PICTURES",
+                "MULTIPLE" => "Y",
                 "PROPERTY_TYPE" => "F",
                 "PROPERTY_FILE_TYPE" => "jpg,gif,bmp,png,jpeg",
                 "IBLOCK_ID" => $this->reviewsIblockId

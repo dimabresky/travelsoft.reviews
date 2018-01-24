@@ -1,0 +1,27 @@
+
+/* 
+    Created on : 24.01.2018, 17:36:45
+    Author     : dimabresky
+*/
+
+.avatar {
+    width: 100%;
+}
+
+.avatar img {
+    width: 70px;
+    height: 70px;
+}
+
+.user-toolbar {
+    padding: 5px 10px 5px 0;
+}
+
+.review-text {
+    padding: 10px 10px 10px 0;
+}
+
+.readmore-js-toggle {
+    padding-bottom: 10px;
+}
+

@@ -6,7 +6,7 @@ $arComponentParameters["PARAMETERS"]['LINK_ELEMENT_ID'] = array(
             "TYPE" => "STRING"
         );
 
-$arComponentParameters["PARAMETERS"]['ELEMENT_COUNT'] = array(
+$arComponentParameters["PARAMETERS"]['PAGE_SIZE'] = array(
             "PARENT" => "BASE",
             "NAME" => "Количество элементов на странице",
             "TYPE" => "STRING",

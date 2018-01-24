@@ -86,7 +86,7 @@ $this->setFrameMode(true);
 
 
 
-<? $this->addExternalJs($templateFolder . "/_script.js") ?>
+<? $this->addExternalJs($templateFolder . "/_script.js", false) ?>
 <script>
 
     window.reviewsAddJsParameters = {

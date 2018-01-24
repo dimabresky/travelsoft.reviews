@@ -17,10 +17,12 @@ class TravelsoftReviewsList extends CBitrixComponent {
             if ($this->arParams["LINK_ELEMENT_ID"] <= 0) {
                 throw new Exception("Не указан id привязки элемента");
             }
+                        
+            \Bitrix\Main\Loader::includeModule("travelsoft.reviews");
             
             $element_id = intVal($this->arParams["LINK_ELEMENT_ID"]);
             
-            $page = ($_REQUEST["PAGEN_1"] > 1 ? $_REQUEST["PAGEN_1"] : 1);
+            $page = ($_REQUEST["PAGEN_1"] > 1 ? intVal($_REQUEST["PAGEN_1"]) : 1);
             
             $pageSize = $this->arParams["PAGE_SIZE"] > 0 ? $this->arParams["PAGE_SIZE"] : 10;
             
@@ -36,11 +38,8 @@ class TravelsoftReviewsList extends CBitrixComponent {
                     
                     $reviews = new travelsoft\reviews\Reviews;
                     
-                    $dbList = $reviews->elementId($element_id)->pageSize($pageSize)
-                            ->page($page);
-                    
-                    $this->arResult = array();
-                    
+                    return $reviews->elementId($element_id)->pageSize($pageSize)
+                            ->page($page)->get();
                     
                 });
                 
