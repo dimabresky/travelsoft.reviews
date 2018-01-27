@@ -17,6 +17,7 @@ class travelsoft_reviews extends CModule {
     public $MODULE_GROUP_RIGHTS = "N";
     public $namespaceFolder = "travelsoft";
     public $componentsList = array(
+        "reviews",
         "reviews.add",
         "reviews.statistics",
         "reviews.list"

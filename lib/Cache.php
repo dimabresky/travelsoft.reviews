@@ -28,7 +28,7 @@ class Cache {
      * @param string  $dir
      * @param int $time в секундах
      */
-    public function __construct(string $id, string $dir = "/travelsoft", int $time = 3600) {
+    public function __construct(string $id, string $dir = "/travelsoft/reviews", int $time = 3600) {
         $this->_cache = \Bitrix\Main\Data\Cache::createInstance();
         $this->_id = $id;
         $this->_dir = $dir;
@@ -61,5 +61,12 @@ class Cache {
             }
         }
         return $result;
+    }
+    
+    /**
+     * @return string
+     */
+    public function getCacheDir() {
+        return $this->_dir;
     }
 }

@@ -9,3 +9,9 @@ $classes = array(
     "travelsoft\\reviews\\Cache" => "lib/Cache.php"
 );
 CModule::AddAutoloadClasses("travelsoft.reviews", $classes);
+
+if (!function_exists("dm")) {
+    function dm($var) {
+        echo "<pre>";print_r($var);echo "</pre>";
+    }
+}

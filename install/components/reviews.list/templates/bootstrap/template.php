@@ -40,7 +40,7 @@ if (!$arResult["ITEMS"]) {
 
                         <? endif ?>
                     </div>
-                    <div class="review-text"><?= $arItem["REVIEW_TEXT"]?></div>
+                    <div class="review-text"><?= $arItem["REVIEW_TEXT"] ?></div>
                 </div>
             </div>
         </div>
@@ -49,12 +49,28 @@ if (!$arResult["ITEMS"]) {
     if (defined("TRAVELSOFT_REVIEWS_AJAX_CALL") && TRAVELSOFT_REVIEWS_AJAX_CALL === TRUE) {
         die;
     }
-    ?>    
+    ?>
+
 </div>
+<?
+if (
+        isset($arResult["dbList"]->NavPageCount) &&
+        isset($arResult["dbList"]->NavPageNomer) &&
+        $arResult["dbList"]->NavPageNomer < $arResult["dbList"]->NavPageCount
+):
+    ?>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+            <button class="btn btn-success" id="show-more-reviews">+ Еще</button>
+        </div>
+    </div>
+<? endif ?>
 
 <? $this->addExternalJs($templateFolder . "/_script.js", true) ?>
 <script>
-window.reviewsListJsParameters = {
-        total_stars_count: <?= Bitrix\Main\Config\Option::get("travelsoft.reviews", "MAX_RATING_VALUE") ?>
+    window.reviewsListJsParameters = {
+        total_stars_count: <?= Bitrix\Main\Config\Option::get("travelsoft.reviews", "MAX_RATING_VALUE") ?>,
+        pageCount: "<?= $arResult["dbList"]->NavPageCount ?>",
+        page: "<?= $arResult["dbList"]->NavPageNomer ?>"
     };
 </script>
