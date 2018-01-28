@@ -41,13 +41,13 @@ if (!$arResult["STATISTICS"]["total_count"]) {
                         <?= $arResult["STATISTICS"]["middle"] ?>
                     </div>
                     <div data-stars="<?= $arResult["STATISTICS"]["middle"] ?>" class="stars"></div>
-                    <div class="total-reviews-count">Всего отзывов: <b itemprop="reviewCount"><?= $arResult["STATISTICS"]["total_count"] ?></b></div>
+                    <div class="total-reviews-count"><?= GetMessage("TOTAL_REVIEWS")?>: <b itemprop="reviewCount"><?= $arResult["STATISTICS"]["total_count"] ?></b></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<? $this->addExternalJs($templateFolder . "/_script.js", true) ?>
+<? $this->addExternalJs($templateFolder . "/_script.min.js", true) ?>
 
 <script>
 

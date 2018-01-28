@@ -17,16 +17,17 @@ if (!$arResult["ITEMS"]) {
         $h = md5("ts_" . $arItem["ID"]);
         ?>
         <div class="panel panel-default">
-            <div class="row">
+            <div class="row" itemprop="review" itemscope itemtype="http://schema.org/Review">
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3 text-center">
                     <div class="avatar"><img src="<?= $arItem["USER"]["AVATAR"] ?>" alt="<?= $arItem["USER"]["EMAIL"] ?>"></div>
-                    <div class="email"><?= $arItem["USER"]["EMAIL"] ?></div>
-                    <div class="date-create"><?= $arItem["DATE_CREATE"] ?></div>
+                    <div itemprop="author" class="email"><?= $arItem["USER"]["EMAIL"] ?></div>
+                    <div itemprop="datePublished" class="date-create"><?= $arItem["DATE_CREATE"] ?></div>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">
 
                     <div class="user-toolbar">
-                        <span id="review-rating-<?= $h ?>" data-stars="<?= $arItem["RATING"] ?>" class="review-rating"></span>
+                        <span class="hidden" itemprop="reviewRating"><?= $arItem["RATING"] ?></span>
+                        <span id="review-rating-<?= $h ?>" data-stars="<?= $arItem["RATING"] ?>" class="review-rating"><?= $arItem["RATING"] ?></span>
                         <? if (!empty($arItem["PICTURES"])) : ?>
 
                             <a data-fancybox="gallery-<?= $h ?>" id="gallery-<?= md5("ts_" . time() . $arItem["PICTURES"][0]["ID"]) ?>" class="review-gallery" href="<?= $arItem["PICTURES"][0]["SRC"] ?>">Галерея</a>
@@ -40,7 +41,7 @@ if (!$arResult["ITEMS"]) {
 
                         <? endif ?>
                     </div>
-                    <div class="review-text"><?= $arItem["REVIEW_TEXT"] ?></div>
+                    <div itemprop="reviewBody" id="review-text-<?=$h?>" class="review-text"><?= $arItem["REVIEW_TEXT"] ?></div>
                 </div>
             </div>
         </div>
@@ -66,11 +67,15 @@ if (
     </div>
 <? endif ?>
 
-<? $this->addExternalJs($templateFolder . "/_script.js", true) ?>
+<? $this->addExternalJs($templateFolder . "/_script.min.js", true) ?>
 <script>
     window.reviewsListJsParameters = {
         total_stars_count: <?= Bitrix\Main\Config\Option::get("travelsoft.reviews", "MAX_RATING_VALUE") ?>,
         pageCount: "<?= $arResult["dbList"]->NavPageCount ?>",
-        page: "<?= $arResult["dbList"]->NavPageNomer ?>"
+        page: "<?= $arResult["dbList"]->NavPageNomer ?>",
+        messages: {
+            showMore: "<?= GetMessage("SHOW_MORE")?>",
+            less: "<?= GetMessage("LESS")?>"
+        }
     };
 </script>
