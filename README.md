@@ -7,6 +7,8 @@
 git clone https://github.com/dimabresky/travelsoft.reviews.git
 ```
 
+Шаблоны включают микроразметку для индексации
+
 Вывод отзывов
 
 ![Вывод отзывов](https://github.com/dimabresky/travelsoft.reviews/raw/master/reviews-view.png)
