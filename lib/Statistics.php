@@ -24,7 +24,7 @@ class Statistics {
 
         $this->_reviews = new Reviews;
         
-        $this->_total_cnt = $this->_reviews->getCount();
+        $this->_total_cnt = $this->_reviews->elementId($element_id)->getCount();
     }
     
     /**
