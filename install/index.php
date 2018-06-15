@@ -254,6 +254,7 @@ class travelsoft_reviews extends CModule {
         
         $ib = new CIBlock();
         $arFields = Array(
+            "CODE" => "TSREVIEWS",
             "NAME" => "Отзывы",
             "LIST_PAGE_URL" => "#SITE_DIR#/reviews",
             "DETAIL_PAGE_URL" => "#SITE_DIR#/reviews/#ELEMENT_CODE#",
