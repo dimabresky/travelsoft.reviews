@@ -13,7 +13,6 @@ class Reviews {
     protected $_filter = array("ACTIVE" => "Y");
     protected $_pageSize = null;
     protected $_stars = null;
-    protected $_element_id = null;
     protected $_order = null;
     protected $_page = null;
 
@@ -40,10 +39,6 @@ class Reviews {
 
         if ($this->_stars !== null) {
             $arFilter["PROPERTY_RATING"] = $this->_stars > 0 ? $this->_stars : false;
-        }
-
-        if ($this->_element_id !== null) {
-            $arFilter["PROPERTY_LINK_ELEMENT_ID"] = $this->_element_id;
         }
 
         $arNav["nPageSize"] = $this->_pageSize;
@@ -103,7 +98,10 @@ class Reviews {
                 "REVIEW_TEXT" => $arFields["DETAIL_TEXT"],
                 "~REVIEW_TEXT" => $arFields["~DETAIL_TEXT"],
                 "USER" => $arUser,
-                "PICTURES" => $arPictures
+                "PICTURES" => $arPictures,
+                "USER_NAME" => $arProperties["USER_NAME"]["VALUE"],
+                "USER_COMPANY" => $arProperties["USER_COMPANY"]["VALUE"],
+                "USER_EMAIL" => $arProperties["USER_COMPANY"]["VALUE"]
             );
         }
         
@@ -111,7 +109,7 @@ class Reviews {
     }
 
     public function elementId(int $element_id) {
-        $this->_element_id = $element_id;
+        $this->_filter["PROPERTY_LINK_ELEMENT_ID"] = $element_id;
         return $this;
     }
 
@@ -144,7 +142,6 @@ class Reviews {
         $this->_pageSize = 10;
         $this->_order = array("ID", "DESC");
         $this->_stars = null;
-        $this->_element_id = null;
     }
 
 }
