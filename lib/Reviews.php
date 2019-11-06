@@ -27,7 +27,7 @@ class Reviews {
         $arFilter = $this->_filter;
 
         if ($this->_stars !== null) {
-            $arFilter["PROPERTY_RATING"] = $this->_stars > 0 ? $this->_stars : false;
+            $arFilter["PROPERTY_RATING_VALUE"] = $this->_stars > 0 ? $this->_stars : false;
         }
 
         return \CIBlockElement::GetList(array(), $arFilter, array(), false);
@@ -38,7 +38,7 @@ class Reviews {
         $arFilter = $this->_filter;
 
         if ($this->_stars !== null) {
-            $arFilter["PROPERTY_RATING"] = $this->_stars > 0 ? $this->_stars : false;
+            $arFilter["PROPERTY_RATING_VALUE"] = $this->_stars > 0 ? $this->_stars : false;
         }
 
         $arNav["nPageSize"] = $this->_pageSize;
