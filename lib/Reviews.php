@@ -63,7 +63,7 @@ class Reviews {
             );
             if ($arProperties["USER_ID"]["VALUE"] > 0) {
                 if (isset($arUsers[$arProperties["USER_ID"]["VALUE"]])) {
-                  $arUser = $arUsers[$arProperties["USER_ID"]["VALUE"]];
+                    $arUser = $arUsers[$arProperties["USER_ID"]["VALUE"]];
                 } else {
                     $arr = \CUser::GetByID($arProperties["USER_ID"]["VALUE"])->Fetch();
                     if ($arr["ID"] > 0) {
@@ -80,17 +80,22 @@ class Reviews {
                     }
                 }
             }
-            
+
             $arPictures = array();
             if (!empty($arProperties["PICTURES"]["VALUE"])) {
-                
-                foreach ($arProperties["PICTURES"]["VALUE"] as $id) {
-                    
-                    $img = \CFile::ResizeImageGet($id, array('width' => 600, 'height' => 500), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, true);
-                    $arPictures[] = array("ID" => $id, "SRC" => $img["src"]);
+
+                if (is_array($arProperties["PICTURES"]["VALUE"])) {
+                    foreach ($arProperties["PICTURES"]["VALUE"] as $id) {
+
+                        $img = \CFile::ResizeImageGet($id, array('width' => 600, 'height' => 500), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, true);
+                        $arPictures[] = array("ID" => $id, "SRC" => $img["src"]);
+                    }
+                } else {
+                    $img = \CFile::ResizeImageGet($arProperties["PICTURES"]["VALUE"], array('width' => 600, 'height' => 500), BX_RESIZE_IMAGE_PROPORTIONAL_ALT, true);
+                    $arPictures[] = array("ID" => $arProperties["PICTURES"]["VALUE"], "SRC" => $img["src"]);
                 }
             }
-            
+
             $arResult["ITEMS"][] = array(
                 "ID" => $arFields["ID"],
                 "DATE_CREATE" => $arFields["DATE_CREATE"],
@@ -104,7 +109,7 @@ class Reviews {
                 "USER_EMAIL" => $arProperties["USER_COMPANY"]["VALUE"]
             );
         }
-        
+
         return $arResult;
     }
 
